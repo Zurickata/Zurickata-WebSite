@@ -1,21 +1,27 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LeadsModule } from './leads/leads.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, // permite usar process.env en todo Nest
+    }),
+
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'devuser',
-      password: 'devpass',
-      database: 'portfolio',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT ?? '5432'),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
       autoLoadEntities: true,
-      synchronize: true, // Úsalo SOLO en desarrollo
+      synchronize: process.env.NODE_ENV !== 'production',
     }),
+
     LeadsModule,
   ],
   controllers: [AppController],

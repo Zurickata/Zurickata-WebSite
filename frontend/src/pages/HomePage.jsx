@@ -18,7 +18,7 @@ export default function HomePage() {
 
             <h1 className="hero-title" style={{ marginTop: 8 }}>
               Desarrollo software con enfoque en{" "}
-              <span className="hero-highlight">claridad, eficiencia</span>  
+              <span className="hero-highlight">claridad, eficiencia </span>  
               y resultados reales.
             </h1>
 
